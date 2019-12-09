@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Modular Fully-Connected Neural Networks}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Layer Implementations}{2}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Fully-Connected (fc) Layer}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Activation Functions}{5}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Softmax Loss}{7}{subsubsection.1.1.3}
+\contentsline {subsection}{\numberline {1.2}Two-layer Network}{9}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Multi-layer Network}{16}{subsection.1.3}
+\contentsline {section}{\numberline {2}Convolution and Backprop Revisited}{18}{section.2}

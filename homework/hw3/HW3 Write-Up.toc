@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Gaussian Classification}{2}{section.1}
+\contentsline {section}{\numberline {2}Isocontours of Normal Distributions}{4}{section.2}
+\contentsline {section}{\numberline {3}Eigenvectors of the Gaussian Covariance Matrix}{8}{section.3}
+\contentsline {section}{\numberline {4}Classification}{10}{section.4}
+\contentsline {section}{\numberline {5}Maximum Likelihood Estimation}{12}{section.5}
+\contentsline {section}{\numberline {6}Covariance Matrices and Decompositions}{15}{section.6}
+\contentsline {section}{\numberline {7}Gaussian Classifiers for Digits and Spam}{18}{section.7}
+\contentsline {section}{\numberline {8}Appendix: Code for Gaussian Classifiers}{19}{section.8}

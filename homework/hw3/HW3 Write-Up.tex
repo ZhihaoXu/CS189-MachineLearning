@@ -1,0 +1,1135 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{enumerate}
+\usepackage{amsmath, mathtools, amsfonts, amsrefs}
+\usepackage{fancyhdr, geometry}
+\usepackage{lastpage}
+\usepackage{pgfplots,pgf}
+\usepackage{tikz}
+\usepackage{color,listings}
+\geometry{left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm}
+\pgfplotsset{width=10cm,compat=1.6}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\usepackage[colorlinks,
+            linkcolor=black,
+            anchorcolor=blue,
+            citecolor=black
+            ]{hyperref}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{dkgreen},
+	breaklines=true,
+	breakatwhitespace=true
+	tabsize=3
+}
+
+
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+%    \hypersetup{
+%     breaklinks=true,  % so long urls are correctly broken across lines
+%      colorlinks=true,
+%      urlcolor=urlcolor,
+%     linkcolor=linkcolor,
+%      citecolor=citecolor,
+%      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\title{CS 189 Homework3}
+\author{Xu Zhihao}
+
+\begin{document}
+\pagestyle{fancy}{}
+\fancyhf{} 
+\lhead{Xu Zhihao}
+\chead{CS 189 Homework3}
+\rhead{\thepage \  / \pageref{LastPage}}
+
+\maketitle
+
+\emph{I certify that all solutions are entirely in my own words and that I have not looked at another student’s solutions. I have given credit to all external sources I consulted.} 
+\begin{flushright}
+Signature: \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+\end{flushright}
+\vspace{100pt}
+
+\tableofcontents
+
+\clearpage
+\section{Gaussian Classification}
+
+\begin{itemize}
+\item[(a)]
+Since
+\begin{align*}
+P(C_i|x) &= \frac{P(x|C_i) \cdot P(C_i)}{p(x)}\\
+\end{align*}
+and $P(C_1) = P(C_2) = \frac{1}{2}$. So, if we want to compare $P(C_1|x)$ and $P(C_2|x)$, we only need to compare $P(x|C_1)$ and $P(x|C_2)$. Here we are going to solve
+$$
+P(x|C_1) \ge P(x|C_2)
+$$
+
+which is equivalent to
+$$(x - \mu_1)^2 \le (x - \mu_2)^2$$
+$$\Rightarrow (2x - \mu_1 - \mu_2) (\mu_2 - \mu_1) \le 0$$
+
+Since $\mu_2 \ge \mu_1$, we can get
+
+$$x \le \frac{\mu_1 + \mu_2}{2}$$
+
+Here the decision boundary is 
+
+$$x = \frac{\mu_1 + \mu_2}{2}$$
+The decision rule is 
+$$\begin{cases}
+C_1 & x < \frac{\mu_1 + \mu_2}{2} \\
+C_2 & x > \frac{\mu_1 + \mu_2}{2} 
+\end{cases}$$
+
+\clearpage
+\item[(b)]
+First we compute $P\left (\text{(misclassified as $C_1$)} | C_2 \right) $
+\begin{align*}
+P\left (\text{(misclassified as $C_1$)} | C_2 \right) 
+&= P (x < \frac{\mu_1 + \mu_2}{2} | C_2)  \\
+&= \frac{1}{\sqrt{2 \pi}}\int_{-\infty}^{\frac{\mu_1+\mu_2}{2}} \frac{1}{\sigma} \exp \left \{ -\frac{(x - \mu_2)^2}{2 \sigma^2}\right \} dx
+\end{align*}
+
+Substitute x by $y = \frac{x - \mu_2}{\sigma}$
+
+\begin{align*}
+P\left (\text{(misclassified as $C_1$)} | C_2 \right) 
+&=  \frac{1}{\sqrt{2 \pi}}\int_{-\infty}^{\frac{\mu_1 - \mu_2}{2 \sigma}} \exp \left \{ -\frac{z^2}{2}\right \} dz \\
+&= \frac{1}{\sqrt{2 \pi}}\int^{+\infty}_{\frac{\mu_2 - \mu_1}{2 \sigma}} \exp \left \{ -\frac{z^2}{2}\right \} dz \\
+\end{align*}
+
+Similarly we can get
+$$
+P\left (\text{(misclassified as $C_2$)} | C_1 \right) =  \frac{1}{\sqrt{2 \pi}}\int^{+\infty}_{\frac{\mu_2 - \mu_1}{2 \sigma}} \exp \left \{ -\frac{z^2}{2}\right \} dz
+$$
+
+Substitute it back, we can get
+\begin{align*}
+P_e 
+&= \frac{1}{\sqrt{2 \pi}}\int^{+\infty}_{\frac{\mu_2 - \mu_1}{2 \sigma}} \exp \left \{ -\frac{z^2}{2}\right \} dz \times \frac{1}{2} + \frac{1}{\sqrt{2 \pi}}\int^{+\infty}_{\frac{\mu_2 - \mu_1}{2 \sigma}} \exp \left \{ -\frac{z^2}{2}\right \} dz \times \frac{1}{2}\\
+&=\frac{1}{\sqrt{2 \pi}}\int^{+\infty}_{\frac{\mu_2 - \mu_1}{2 \sigma}} \exp \left \{ -\frac{z^2}{2}\right \} dz 
+\end{align*}
+\end{itemize}
+
+\clearpage
+\section{Isocontours of Normal Distributions}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{multivariate\PYZus{}normal}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{multiNormalPdf}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{n}{pos}\PY{p}{)}\PY{p}{:}
+            \PY{n}{d} \PY{o}{=} \PY{n}{mu}\PY{o}{.}\PY{n}{size}
+            \PY{n}{fac} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{einsum}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{...k,kl,...l\PYZhy{}\PYZgt{}...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                            \PY{n}{pos}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}\PY{p}{,} \PY{n}{pos}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{)}
+            \PY{n}{Z} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{d} \PY{o}{*} \PYZbs{}
+                   \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fac} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Z}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} (a)}
+        \PY{k}{def} \PY{n+nf}{ContourPlot1}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{n}{xmin}\PY{p}{,}\PY{n}{xmax}\PY{p}{,}\PY{n}{ymin}\PY{p}{,}\PY{n}{ymax}\PY{p}{)}\PY{p}{:}
+            \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{60}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+            \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+            \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+        
+            \PY{n}{pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pos}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{X}
+            \PY{n}{pos}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{Y}
+            
+            \PY{n}{Z} \PY{o}{=} \PY{n}{multiNormalPdf}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{n}{pos}\PY{p}{)}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{cset} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coolwarm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ContourPlot1}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{l+m+mf}{3.5}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} (b)}
+        \PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ContourPlot1}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,}\PY{l+m+mf}{6.5}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{ContourPlot2}\PY{p}{(}\PY{n}{mu\PYZus{}1}\PY{p}{,}\PY{n}{Sigma\PYZus{}1}\PY{p}{,}\PY{n}{mu\PYZus{}2}\PY{p}{,}\PY{n}{Sigma\PYZus{}2}\PY{p}{,} \PYZbs{}
+                         \PY{n}{xmin}\PY{p}{,}\PY{n}{xmax}\PY{p}{,}\PY{n}{ymin}\PY{p}{,}\PY{n}{ymax}\PY{p}{)}\PY{p}{:}
+            \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{60}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+            \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+            \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+        
+            \PY{n}{pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pos}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{X}
+            \PY{n}{pos}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{Y}
+            
+            \PY{n}{Z} \PY{o}{=} \PY{n}{multiNormalPdf}\PY{p}{(}\PY{n}{mu\PYZus{}1}\PY{p}{,}\PY{n}{Sigma\PYZus{}1}\PY{p}{,}\PY{n}{pos}\PY{p}{)} \PY{o}{\PYZhy{}} \PYZbs{}
+                        \PY{n}{multiNormalPdf}\PY{p}{(}\PY{n}{mu\PYZus{}2}\PY{p}{,}\PY{n}{Sigma\PYZus{}2}\PY{p}{,}\PY{n}{pos}\PY{p}{)}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{cset} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coolwarm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} (c)}
+        \PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{mu\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{mu\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ContourPlot2}\PY{p}{(}\PY{n}{mu\PYZus{}1}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{n}{mu\PYZus{}2}\PY{p}{,}\PY{n}{Sigma}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5}\PY{p}{,}\PY{l+m+mf}{4.5}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} (d)}
+        \PY{n}{Sigma\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{Sigma\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{mu\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{mu\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ContourPlot2}\PY{p}{(}\PY{n}{mu\PYZus{}1}\PY{p}{,}\PY{n}{Sigma\PYZus{}1}\PY{p}{,}\PY{n}{mu\PYZus{}2}\PY{p}{,}\PY{n}{Sigma\PYZus{}2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} (e)}
+        \PY{n}{Sigma\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{Sigma\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{mu\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{mu\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ContourPlot2}\PY{p}{(}\PY{n}{mu\PYZus{}1}\PY{p}{,}\PY{n}{Sigma\PYZus{}1}\PY{p}{,}\PY{n}{mu\PYZus{}2}\PY{p}{,}\PY{n}{Sigma\PYZus{}2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.5}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    %{ \hspace*{\fill} \\}
+    
+
+
+
+
+
+\clearpage
+\section{Eigenvectors of the Gaussian Covariance Matrix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{10130}\PY{p}{)}
+         \PY{n}{x\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{189}\PY{p}{)}
+         \PY{n}{x\PYZus{}2} \PY{o}{=} \PY{n}{x\PYZus{}1} \PY{o}{/} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} (a)}
+         \PY{n}{mean} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}1}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}2}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean of sample is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{mean}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of sample is (3.320627223330448, 5.394127429864527)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} (b)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{(}\PY{n}{x\PYZus{}1}\PY{p}{,}\PY{n}{x\PYZus{}2}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{Sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The covariance matrix of the sample is }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{Sigma}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The covariance matrix of the sample is 
+ [[7.85220172 5.08973215]
+ [5.08973215 7.61491086]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} (c)}
+         \PY{n}{eigenVal}\PY{p}{,} \PY{n}{eigenVec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}
+         \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{eigenVal}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{eigenVec} \PY{o}{=} \PY{n}{eigenVec}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{idx}\PY{p}{]}
+         \PY{n}{eigenVal} \PY{o}{=} \PY{n}{eigenVal}\PY{p}{[}\PY{n}{idx}\PY{p}{]}
+         \PY{n}{eigenVal}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} array([12.82467112,  2.64244147])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{eigenVec}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array([[ 0.71529868, -0.69881886],
+                [ 0.69881886,  0.71529868]])
+\end{Verbatim}
+            
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} (d)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x\PYZus{}1}\PY{p}{,}\PY{n}{x\PYZus{}2}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{arrow}\PY{p}{(}\PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{eigenVec}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{eigenVal}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                   \PY{n}{eigenVec}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{eigenVal}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{head\PYZus{}width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{arrow}\PY{p}{(}\PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{eigenVec}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{eigenVal}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                   \PY{n}{eigenVec}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{eigenVal}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{head\PYZus{}width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.patches.FancyArrow at 0x1a21ff0cc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} (e)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{mean}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{X\PYZus{}rote} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{eigenVec}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{X}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}rote}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X\PYZus{}rote}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    %{ \hspace*{\fill} \\}
+
+
+\clearpage
+\section{Classification}
+\begin{itemize}
+\item[(a)]
+Using the given decision rule, when $i = 1, 2, 3, \cdots, c$
+\begin{align*}
+R(r(x) = i|x) 
+&= \sum_{j \ne i}^c \lambda_s P(Y=j|x) + 0 \times P(Y=i|x) \\
+&=  \lambda_s \sum_{j = 1}^c P(Y=j|x) - \lambda_s \times P(Y=i|x) 
+\end{align*}
+when $i = c+1$
+\begin{align*}
+R(r(x) = c+1|x) = \lambda_r \sum_{j = 1}^c P(Y=j|x)
+\end{align*}
+Since we want  to minimize the risk, when choose class i we need to solve 
+$$
+R(r(x) = i|x) \le R(r(x) = c+1|x) 
+$$
+The solution to this inequality is
+$$\begin{cases}
+P(Y = i|x) \ge P(Y = j|x) \\
+P(Y = i|x) \ge \frac{\lambda_s - \lambda_r}{\lambda_s} = 1 - \frac{ \lambda_r}{\lambda_s} 
+\end{cases}$$
+which is equivalent to our decision rule.
+
+\clearpage
+
+\item[(b)]
+When $\lambda_r = 0$, 
+$$
+R(r(x) = c+1|x) = 0 \le R(r(x) = i|x) 
+$$
+So, for all x, we just choose class doubt. Intuitively, since choose class doubt is no cost, we prefer to choose this class. \\
+
+When $\lambda_r > \lambda_s$,
+$$
+R(r(x) = i|x)  \le  \lambda_s \sum_{j = 1}^c P(Y=j|x)  \le  \lambda_r \sum_{j = 1}^c P(Y=j|x) = R(r(x) = c+1|x) 
+$$
+So, here for all x, we will never choose class doubt. Intuitively, since the cost of predict doubt is even higher than the cost of predicting wrong, we will never choose it.
+\end{itemize}
+
+
+
+\clearpage
+\section{Maximum Likelihood Estimation}
+
+\begin{itemize}
+\item[(a)]
+The pdf of multivariate normal distribution is
+$$
+f(x;\mu,\Sigma) = \frac{1}{\sqrt{(2 \pi)^d |\Sigma|}} \exp \left[ -\frac{1}{2} (x - \mu)^T \Sigma^{-1} (x - \mu)\right]
+$$
+
+The likelihood function is
+$$
+L(\mu,\Sigma) = \left (\frac{1}{\sqrt{(2 \pi)^d |\Sigma|}} \right )^n  \exp \left \{ \sum_{i=1}^n \left[ -\frac{1}{2} (x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\right] \right \}
+$$
+
+The log-likelihood is
+$$
+\log L(\mu,\Sigma) = -\frac{dn}{2} \log 2\pi - \frac{n}{2} \log |\Sigma| - \frac{1}{2} \sum_{i=1}^n (x_i - \mu)^T \Sigma^{-1} (x_i - \mu)
+$$
+
+First we compute $\hat \mu$
+\begin{align*}
+\frac{\partial \log L(\mu,\Sigma) }{\partial \mu} 
+&= -\frac{1}{2} \sum_{i=1}^n \left \{ (-1) \cdot \Sigma^{-1}(x_i - \mu) + (-1) \Sigma^{-1} (x_i - \mu)\right \} \\
+&= \sum_{i=1}^n \Sigma^{-1}(x_i - \mu) \\
+&= \Sigma^{-1}\sum_{i=1}^n (x_i - \mu) = 0 \\
+\Rightarrow \hat \mu &= \frac{1}{n} \sum_{i=1}^n x_i \\
+\end{align*}
+
+To compute $\hat \Sigma$, first we need to do some transformation on the log-likelihood function
+\begin{align*}
+\log L(\mu,\Sigma) 
+&= -\frac{dn}{2} \log 2\pi - \frac{n}{2} \log |\Sigma| - \frac{1}{2} \sum_{i=1}^n (x_i - \mu)^T \Sigma^{-1} (x_i - \mu) \\
+&= -\frac{dn}{2} \log 2\pi - \frac{n}{2} \log |\Sigma| - \frac{1}{2} \sum_{i=1}^n Tr \left [  (x_i - \mu)^T \Sigma^{-1} (x_i - \mu) \right ] \\
+&= -\frac{dn}{2} \log 2\pi - \frac{n}{2} \log |\Sigma| - \frac{1}{2} \sum_{i=1}^n Tr \left [ \Sigma^{-1}  (x_i - \mu)^T (x_i - \mu) \right ] \\
+&= -\frac{dn}{2} \log 2\pi - \frac{n}{2} \log |\Sigma| - \frac{1}{2} Tr \left [ \sum_{i=1}^n \Sigma^{-1}  (x_i - \mu)^T (x_i - \mu) \right ] 
+\end{align*}
+
+Here we take the partial derivative with respect to $\Sigma^{-1}$
+
+\begin{align*}
+\frac{\partial \log L(\mu,\Sigma) }{\partial \Sigma^{-1}}
+&= \frac{n}{2}  \Sigma - \frac{1}{2} \sum_{i=1}^n  (x_i - \mu)^T (x_i - \mu)  = 0  \\
+\Rightarrow \hat \Sigma &= \frac{1}{n} \sum_{i=1}^n  (x_i - \mu)^T (x_i - \mu) \\
+\hat \sigma_i &= \hat \Sigma_{ii} =  \frac{1}{n} \sum_{j=1}^n (x_j - \mu_i)^2
+\end{align*}
+
+
+\clearpage
+
+\item[(b)]
+Using the result in (a)
+$$
+A \hat \mu = \widehat{A \mu} =  \frac{1}{n} \sum_{i=1}^n x_i
+$$
+Since A is invertible
+$$
+\Rightarrow \hat \mu = A^{-1}  \frac{1}{n} \sum_{i=1}^n x_i
+$$
+\end{itemize}
+\clearpage
+
+
+\section{Covariance Matrices and Decompositions}
+\begin{itemize}
+\item[(a)]
+For $\forall y \in \mathbb{R}^d$,
+\begin{align*}
+y^T \hat \Sigma y 
+&= y^T \left [ \frac{1}{n} \sum_{i=1}^n (x_i - \mu)(x_i - \mu)^T \right ] y \\
+&=  \frac{1}{n} \left [  \sum_{i=1}^n y^T (x_i - \mu)(x_i - \mu)^T y \right ]  \\
+&= \frac{1}{n} \sum_{i=1}^n \left \| (x_i - \mu)^T y \right \|_2 \ge -
+\end{align*}
+So, $\hat \Sigma$ is always PSD. If $y^T \hat \Sigma y = 0$, iff. $(x_i - \mu) y= 0$ for $\forall i \in [1,n]$. Then there exist a linear combination of $(x_i - \mu)$, $y = \alpha_1 (x_1 - \mu) + \alpha_2 (x_2 - \mu) + \cdots + \alpha_n (x_n - \mu)$, $y^T y =\alpha_1 (x_1 - \mu) y + \alpha_2 (x_2 - \mu) y+ \cdots + \alpha_n (x_n - \mu) y = 0$ when $\alpha_1 = \alpha_2 = \cdots = \alpha_n = 1$. So $y = 0$, and here $\Sigma$ is not invertible. In conclusion, if $\text{span} \{ (x_i - \mu)\} = \mathbb{R}^d$, $\hat \Sigma$ is invertible. If dimension of $\text{span} \{ (x_i - \mu)\} \le d$, $\hat \Sigma$ is not invertible. \\
+
+Geometrically, if dim $\{ (x_1 - \mu), (x_2 - \mu), \cdots, (x_i - \mu)\} = d$. All the data points are on the subspace of $\mathbb{R}^d$. If dim $\{ (x_1 - \mu), (x_2 - \mu), \cdots, (x_i - \mu)\} = d - 1$, there exist two points lying on the same hyperplane. The dimension of $\mathbb{R}^d$ can be deducted.
+
+\clearpage
+\item[(b)]
+Take $X = [X_1, X_2, \cdots, X_n] \in \mathbb{R}^{n \times d}$. We can define a centering matrix
+$$
+C_n = I_n - \frac{1}{n} \textbf{1} \textbf{1}^T
+$$
+where $\textbf{1}$ is the all one column vector. Let
+$$
+S = X C_n X = X C_n C_n^T X^T = (X C_n) (X C_n)^T
+$$
+Take r equals the number of non-zero eigenvalues. $v_i$ denote the eigenvector corresponding to the eigenvector $\lambda_i$.
+Take $H = [v_1, v_2, \cdots, v_n] \in \mathbb{R}^{n \times r} $ and $L = \text{diag} \{ \lambda_1, \lambda_2, \cdots, \lambda_n\}$. The new maximum likelihood estimator of covariance matrix is
+$$
+\hat \Sigma = \frac{1}{d} H L H^T
+$$
+
+\clearpage
+\item[(c)]
+The log-pdf of $N(0,\Sigma)$,
+$$
+\log f(x) = -\frac{d}{2} \log 2 \pi - \frac{1}{2} \log \| \Sigma \| - \frac{1}{2} x^T \Sigma^{-1} x
+$$
+So the problem is equivalent to 
+$$
+\min \limits_{\| x \|_2 = 1} x^T \Sigma^{-1} x \text{  and  } \max \limits_{\| x \|_2 = 1} x^T \Sigma^{-1} x
+$$
+Using the Lagrange multiplier,
+$$
+L(x,\lambda) = x^T \Sigma^{-1} x - \lambda(x^T x -1)
+$$
+We need to solve
+$$
+\begin{cases}
+\nabla_{x,\lambda} L(x,\lambda) = 0 \\
+x^T x - 1 = 0
+\end{cases}
+$$
+We can get that 
+$$
+\nabla_{x} L(x,\lambda) = 2 \Sigma^{-1} x = 0 \text{  and  } \nabla_{\lambda} L(x,\lambda) = 2 \lambda x =0
+$$
+Since $\Sigma^{-1} x = \lambda x  $, by definition, $\lambda$ is the eigenvalue of $\Sigma^{-1}$, then
+$$
+x^T \Sigma^{-1} x = x^T  \lambda x =  \lambda x^T x = \lambda
+$$
+So
+$$
+\begin{cases}
+(x^T \Sigma^{-1} x)_{min} = \lambda_{min}(\Sigma^{-1}) = \lambda_{max}(\Sigma) \\
+(x^T \Sigma^{-1} x)_{max} = \lambda_{max}(\Sigma^{-1}) = \lambda_{min}(\Sigma) \\
+\end{cases}
+$$
+So, the unit eigenvector corresponding to $ \lambda_{max}(\Sigma)$ maximize the PDF f(x) and the unit eigenvector corresponding to $ \lambda_{min}(\Sigma)$ minimize the PDF f(x)
+\end{itemize}
+
+\clearpage
+\section{Gaussian Classifiers for Digits and Spam}
+\begin{itemize}
+\item[(a)]
+Fit the $\hat \mu_C$ and $\hat \Sigma_C$ for each class C, using maximum likelihood estimation. Here we plot the mean of some digit class and check whether it is correct or not. The result are shown in the code section.
+
+\item[(b)]
+Visualize the covariance of a particular digit class. We can notice that the diagonal entries are much brighter than the off-diagonal one, which means the diagonal entries are larger than the off-diagonal entries. Since the diagonal entries actually are the variance of a pixel. Intuitively, the correlation between different pixel point is smaller than the variance itself.
+
+\item[(c)]
+\subitem (1) (2) The result and plot of error rate are shown in the code section.
+
+\subitem (3) The LDA performs better than QDA. I think the reason is there is no statistical difference between the covariance of each digit class. The QDA will cause extra variance.
+
+\subitem (4) Notice that for LDA 2 is the easiest digit class to predict and for QDA 1 is the easiest digit class to predict.
+
+\item[(d)] Kaggle username: Jack\_xzh \\
+Score of MNIST: 0.88360 \\
+Score of SPAM: 0.81953 \\
+\end{itemize}
+
+\clearpage
+\section{Appendix: Code for Gaussian Classifiers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{processData}\PY{p}{(}\PY{n}{name}\PY{p}{,}\PY{n}{testing\PYZus{}size}\PY{p}{)}\PY{p}{:}
+             \PY{n}{folder} \PY{o}{=} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}data}\PY{l+s+s2}{\PYZdq{}}
+             \PY{n}{file} \PY{o}{=} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}
+             \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hw3\PYZhy{}resources/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{folder} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{file} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mat}\PY{l+s+s2}{\PYZdq{}} 
+             \PY{n}{data} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+         
+             \PY{n}{data\PYZus{}X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             \PY{n}{data\PYZus{}X} \PY{o}{=} \PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+             \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             \PY{n}{data\PYZus{}t} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             
+             \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{189}\PY{p}{)}
+             \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                                   \PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{testing\PYZus{}size}\PY{p}{)}
+         
+             \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+             \PY{n}{data\PYZus{}X\PYZus{}validate} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}y}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+             \PY{n}{data\PYZus{}y\PYZus{}validate} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{data\PYZus{}y}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+             \PY{n}{Data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+             \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}X\PYZus{}train}
+             \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}X\PYZus{}validate}
+             \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}y\PYZus{}train}
+             \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}y\PYZus{}validate}
+             \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}t}
+             
+             \PY{k}{if} \PY{n}{name} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                 \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}
+                 \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}
+                 \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}
+             \PY{k}{return} \PY{n}{Data}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{mnistData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{spamData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{Mu} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{Index} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{Sigma} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}\PY{n}{rowvar}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{bias}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{n}{Index}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{index}\PY{p}{)}
+             \PY{n}{Mu}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+             \PY{n}{Sigma}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sigma}\PY{p}{)}
+         \PY{n}{prior} \PY{o}{=} \PY{p}{[}\PY{n}{index}\PY{o}{.}\PY{n}{size}\PY{o}{/}\PY{l+m+mi}{60000} \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n}{Index}\PY{p}{]}
+         \PY{n}{SigmaLDA} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{10.0}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{Mu}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.image.AxesImage at 0x1a31119128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} (b)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{Sigma}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{center}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{viridis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a31140a58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} (c)}
+         \PY{n}{mnistData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{trainSplit}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+             \PY{n}{shuffle} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{data\PYZus{}x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{shuffle}\PY{p}{]}
+             \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{shuffle}\PY{p}{]}
+             \PY{n}{train\PYZus{}X} \PY{o}{=} \PY{n}{data\PYZus{}x}\PY{p}{[}\PY{p}{:}\PY{n}{size}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+             \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{data\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{n}{size}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+             \PY{k}{return} \PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y}
+         
+         \PY{k}{def} \PY{n+nf}{predictLDA}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{priors}\PY{p}{,} \PY{n}{means}\PY{p}{,} \PY{n}{covar}\PY{p}{)}\PY{p}{:}
+             \PY{n}{multiGaussians} \PY{o}{=} \PYZbs{}
+             \PY{p}{[}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{covar}\PY{p}{,} \PY{n}{allow\PYZus{}singular}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PYZbs{}
+              \PY{k}{for} \PY{n}{mean} \PY{o+ow}{in} \PY{n}{means}\PY{p}{]}
+             \PY{n}{pdfs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{gauss}\PY{o}{.}\PY{n}{logpdf}\PY{p}{(}\PY{n}{samples}\PY{p}{)} \PY{k}{for} \PY{n}{gauss} \PY{o+ow}{in} \PY{n}{multiGaussians}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+             \PY{n}{posteriors} \PY{o}{=} \PY{n}{pdfs} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{priors}\PY{p}{)}
+             \PY{n}{predictions} \PY{o}{=} \PY{n}{posteriors}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{predictions}
+         
+         \PY{k}{def} \PY{n+nf}{predictQDA}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{priors}\PY{p}{,} \PY{n}{means}\PY{p}{,} \PY{n}{covars}\PY{p}{)}\PY{p}{:}
+             \PY{n}{multiGaussians} \PY{o}{=} \PYZbs{}
+             \PY{p}{[}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{means}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{covars}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{allow\PYZus{}singular}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PYZbs{}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{means}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{n}{pdfs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{gauss}\PY{o}{.}\PY{n}{logpdf}\PY{p}{(}\PY{n}{samples}\PY{p}{)} \PY{k}{for} \PY{n}{gauss} \PY{o+ow}{in} \PY{n}{multiGaussians}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+             \PY{n}{posteriors} \PY{o}{=} \PY{n}{pdfs} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{priors}\PY{p}{)}
+             \PY{n}{predictions} \PY{o}{=} \PY{n}{posteriors}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{predictions}
+         
+         \PY{c+c1}{\PYZsh{} Usage results\PYZus{}to\PYZus{}csv(clf.predict(X\PYZus{}test))}
+         \PY{k}{def} \PY{n+nf}{results\PYZus{}to\PYZus{}csv}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{dataname}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{df}\PY{o}{.}\PY{n}{index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}  \PY{c+c1}{\PYZsh{} Ensures that the index starts at 1. }
+             \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{dataname}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{submission.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{fitLDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Mu} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{Index} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{Sigma} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{data}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{10}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{2}
+                 
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}0\PYZhy{}9 digits}
+                 \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{train\PYZus{}y} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}\PY{n}{rowvar}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{bias}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 
+                 \PY{n}{Index}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{index}\PY{p}{)}
+                 \PY{n}{Mu}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+                 \PY{n}{Sigma}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sigma}\PY{p}{)}
+         
+             \PY{n}{prior} \PY{o}{=} \PY{p}{[}\PY{n}{index}\PY{o}{.}\PY{n}{size}\PY{o}{/}\PY{n}{sample} \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n}{Index}\PY{p}{]}
+         
+             \PY{n}{SigmaLDA} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{10.0}
+             
+             \PY{n}{pred} \PY{o}{=} \PY{n}{predictLDA}\PY{p}{(}\PY{n}{test}\PY{p}{,}\PY{n}{prior}\PY{p}{,} \PY{n}{Mu}\PY{p}{,} \PY{n}{SigmaLDA}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pred}
+         
+         \PY{k}{def} \PY{n+nf}{fitQDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Mu} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{Index} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{Sigma} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{data}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{10}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{2}
+                 
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}0\PYZhy{}9 digits}
+                 \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{train\PYZus{}y} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}\PY{n}{rowvar}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{bias}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+                 \PY{n}{Index}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{index}\PY{p}{)}
+                 \PY{n}{Mu}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+                 \PY{n}{Sigma}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sigma}\PY{p}{)}
+         
+         
+             \PY{n}{prior} \PY{o}{=} \PY{p}{[}\PY{n}{index}\PY{o}{.}\PY{n}{size}\PY{o}{/}\PY{n}{sample} \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n}{Index}\PY{p}{]}
+         
+             \PY{n}{pred} \PY{o}{=} \PY{n}{predictQDA}\PY{p}{(}\PY{n}{test}\PY{p}{,}\PY{n}{prior}\PY{p}{,} \PY{n}{Mu}\PY{p}{,} \PY{n}{Sigma}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pred}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{errorLDA} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{training\PYZus{}sample} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{30000}\PY{p}{,} \PY{l+m+mi}{50000}\PY{p}{]}
+         \PY{k}{for} \PY{n}{sample} \PY{o+ow}{in} \PY{n}{training\PYZus{}sample}\PY{p}{:}
+             \PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{trainSplit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{n}{sample}\PY{p}{)}
+         
+             \PY{n}{pred} \PY{o}{=} \PY{n}{fitLDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PYZbs{}
+                     \PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{*}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{accuracy} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{pred}\PY{o}{==}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{pred}\PY{o}{.}\PY{n}{size}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{accuracy}\PY{p}{)}
+             \PY{n}{errorLDA}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100 :  0.3275
+200 :  0.3094
+500 :  0.6796
+1000 :  0.3517
+2000 :  0.22119999999999995
+5000 :  0.1603
+10000 :  0.14629999999999999
+30000 :  0.13280000000000003
+50000 :  0.1311
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{errorLDA}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plt.legend(loc=\PYZdq{}lower right\PYZdq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnistData LDA Error Rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{errorQDA} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{training\PYZus{}sample} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{30000}\PY{p}{,} \PY{l+m+mi}{50000}\PY{p}{]}
+         \PY{k}{for} \PY{n}{sample} \PY{o+ow}{in} \PY{n}{training\PYZus{}sample}\PY{p}{:}
+             \PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{trainSplit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{n}{sample}\PY{p}{)}
+             
+             \PY{n}{pred} \PY{o}{=} \PY{n}{fitQDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PYZbs{}
+                     \PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{*}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{accuracy} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{pred}\PY{o}{==}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{pred}\PY{o}{.}\PY{n}{size}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{accuracy}\PY{p}{)}
+             \PY{n}{errorQDA}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100 :  0.9082
+200 :  0.8173
+500 :  0.4324
+1000 :  0.20309999999999995
+2000 :  0.29059999999999997
+5000 :  0.32420000000000004
+10000 :  0.19399999999999995
+30000 :  0.13739999999999997
+50000 :  0.12890000000000001
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{errorQDA}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{errorLDA}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnistData QDA and LDA Error Rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{trainSplit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{l+m+mi}{50000}\PY{p}{)}
+         \PY{n}{predLDA} \PY{o}{=} \PY{n}{fitLDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{errLDA} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{predQDA} \PY{o}{=} \PY{n}{fitQDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{errQDA} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{predLDA\PYZus{}index} \PY{o}{=} \PY{n}{predLDA}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PYZbs{}
+                             \PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{*}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{predQDA\PYZus{}index} \PY{o}{=} \PY{n}{predQDA}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PYZbs{}
+                             \PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{*}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+             
+             \PY{n}{errLDA}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{predLDA\PYZus{}index}\PY{o}{==}\PY{n}{result}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predLDA\PYZus{}index}\PY{p}{)}\PY{p}{)}
+             \PY{n}{errQDA}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{predQDA\PYZus{}index}\PY{o}{==}\PY{n}{result}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predQDA\PYZus{}index}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{errLDA}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{errQDA}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{digit class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation error for each digit class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} Text(0.5, 1.0, 'validation error for each digit class')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{mnistData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{trainSplit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{l+m+mi}{60000}\PY{p}{)}
+         
+         
+         \PY{n}{pred} \PY{o}{=} \PY{n}{fitLDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{results\PYZus{}to\PYZus{}csv}\PY{p}{(}\PY{n}{pred}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnistLDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{pred} \PY{o}{=} \PY{n}{fitQDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{mnistData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{results\PYZus{}to\PYZus{}csv}\PY{p}{(}\PY{n}{pred}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnistQDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{spamData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{trainSplit}\PY{p}{(}\PY{n}{spamData}\PY{p}{,}\PY{l+m+mi}{5172}\PY{p}{)}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{fitLDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{spamData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{results\PYZus{}to\PYZus{}csv}\PY{p}{(}\PY{n}{pred}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spamLDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{fitQDA}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{spamData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{results\PYZus{}to\PYZus{}csv}\PY{p}{(}\PY{n}{pred}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spamQDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+\end{document}
+
+
+

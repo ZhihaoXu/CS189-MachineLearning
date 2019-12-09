@@ -1,0 +1,981 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{enumerate}
+\usepackage{amsmath, mathtools, amsfonts, amsrefs}
+\usepackage{fancyhdr, geometry}
+\usepackage{lastpage}
+\usepackage{pgfplots,pgf}
+\usepackage{tikz}
+\usepackage{color,listings}
+\geometry{left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm}
+\pgfplotsset{width=10cm,compat=1.6}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\usepackage[colorlinks,
+            linkcolor=black,
+            anchorcolor=blue,
+            citecolor=black
+            ]{hyperref}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{dkgreen},
+	breaklines=true,
+	breakatwhitespace=true
+	tabsize=3
+}
+
+
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+%    \hypersetup{
+%     breaklinks=true,  % so long urls are correctly broken across lines
+%      colorlinks=true,
+%      urlcolor=urlcolor,
+%     linkcolor=linkcolor,
+%      citecolor=citecolor,
+%      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\title{CS 189 Homework1}
+\author{Xu Zhihao}
+
+\begin{document}
+\pagestyle{fancy}{}
+\fancyhf{} 
+\lhead{Xu Zhihao}
+\chead{CS 189 Homework1}
+\rhead{\thepage \  / \pageref{LastPage}}
+
+\maketitle
+
+\emph{I certify that all solutions are entirely in my own words and that I have not looked at another student’s solutions. I have given credit to all external sources I consulted.} 
+\begin{flushright}
+Signature: \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+\end{flushright}
+\vspace{100pt}
+
+\tableofcontents
+
+\clearpage
+\section{Python Configuration and Data Loading}
+Configure python environment properly and successfully load the dataset.
+
+\section{Data Partitioning}
+Divide the dataset into training and validation set followed by the instruction.
+
+\section{Support Vector Machines: Coding}
+Train a linear support vector machine (SVM) with different number of training samples on all three datasets and plot the error rate versus the number of training sample.
+
+\begin{itemize}
+\item[(a)]Train your model on \textbf{MNIST} dataset with the following numbers of training examples: 100, 200, 500, 1,000, 2,000, 5,000, 10,000. The corresponding accuracy I get listed in following Table:
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+  \centering
+  \caption{Accuracy of the Linear SVM Model on \textbf{MNIST} dataset}
+    \begin{tabular}{ccc}
+    \multicolumn{1}{l}{\# of training sample} & \multicolumn{1}{l}{training accuracy} & \multicolumn{1}{l}{validation accuracy} \\
+    \hline
+    100 & 1 & 0.7423 \\
+    200 & 1 & 0.8088 \\
+    500 & 1 & 0.8698 \\
+    1000 & 1 & 0.8746 \\
+    2000 & 1 & 0.8965 \\
+    5000 & 1 & 0.9010 \\
+    10000 & 1 & 0.9101 \\
+    \end{tabular}%
+  \label{tab1}%
+\end{table}%
+
+We can easily see that the validation accuracy increase with the increase of training sample.
+
+\item[(b)]Train your model on \textbf{spam} dataset with the following numbers of training examples: 100, 200, 500, 1,000, 2,000, \textbf{ALL}. The corresponding accuracy I get listed in following Table:
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+  \centering
+  \caption{Accuracy of the Linear SVM Model on \textbf{spam} dataset}
+    \begin{tabular}{ccc}
+    \multicolumn{1}{l}{\# of training sample} & \multicolumn{1}{l}{training accuracy} & \multicolumn{1}{l}{validation accuracy} \\
+    \hline
+    100 & 0.840 & 0.753 \\
+    200 & 0.850 & 0.813 \\
+    500 & 0.856 & 0.814 \\
+    1000 & 0.793 & 0.801 \\
+    2000 & 0.7925 & 0.809 \\
+    ALL(4138) & 0. 800& 0.812\\
+    \end{tabular}%
+  \label{tab2}%
+\end{table}%
+
+\item[(c)]Train your model on \textbf{CIFAR-10} dataset with the following numbers of training examples: 100, 200, 500, 1,000, 2,000, 5,000. The corresponding accuracy I get listed in following Table:
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+  \centering
+  \caption{Accuracy of the Linear SVM Model on \textbf{CIFAR-10} dataset}
+    \begin{tabular}{ccc}
+    \multicolumn{1}{l}{\# of training sample} & \multicolumn{1}{l}{training accuracy} & \multicolumn{1}{l}{validation accuracy} \\
+    \hline
+    100 & 1 & 0.2154 \\
+    200 & 1 & 0.2504 \\
+    500 & 1 & 0.2714 \\
+    1000 & 1 & 0.2738 \\
+    2000 & 1 & 0.2910 \\
+    5000& 1 & 0.3030\\
+    \end{tabular}%
+  \label{tab3}%
+\end{table}%
+
+I notice that there exist overfitting in the CIFAR-10 dataset. I tried to change the penalty term coefficient C, however it does not work. The training accuracy is still 1 and validation accuracy is relatively low.
+\end{itemize}
+
+\clearpage
+
+\section{Hyperparameter Tuning}
+Use different C value to train our linear SVM model. Here I listed all the C value I tried and the corresponding validation accuracy in following Table:
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+  \centering
+  \caption{Accuracy of the Linear SVM Model on \textbf{MNIST} dataset with different C value}
+    \begin{tabular}{cc|cc}
+    \multicolumn{1}{l}{C value} & \multicolumn{1}{l|}{validation accuracy} & \multicolumn{1}{l}{C value} & \multicolumn{1}{l}{validation accuracy}\\
+    \hline
+    0.1 & 0.9124 &    0.8 & 0.9108 \\
+    0.2 & 0.9087 &     0.9 & 0.9167 \\
+    0.3 & 0.9075 &     1 & 0.9103 \\
+    0.4 & 0.9104 &    2 & 0.9133 \\
+    0.5 & 0.9119 &    3 & 0.9139 \\
+    0.6 & 0.9157 &    4 & 0.9092 \\
+    0.7 & 0.9149 &     5 & 0.9124 \\
+    \end{tabular}%
+  \label{tab4}%
+\end{table}%
+
+Here I notice that there is no strong difference in the validation an accuracy among different C values, the best C value here is C = 0.9
+
+\clearpage
+
+\section{K-Fold Cross-Validation}
+Use different C value to train our linear SVM model and use 5-fold cross validation to get the validation accuracy. Here I listed all the C value I tried and the corresponding validation accuracy in following Table:
+
+\begin{table}[htb]
+  \centering
+  \caption{Accuracy of the Linear SVM Model on \textbf{spam} dataset with different C value}
+    \begin{tabular}{cc|cc}
+    \multicolumn{1}{l}{C value} & \multicolumn{1}{l|}{validation accuracy} & \multicolumn{1}{l}{C value} & \multicolumn{1}{l}{validation accuracy}\\
+    \hline
+    0.1 & 0.7939 &    0.8 & 0.8009 \\
+    0.2 & 0.7968 &     0.9 & 0.8014 \\
+    0.3 & 0.7993 &     1 & 0.8012 \\
+    0.4 & 0.7993 &    2 & 0.8016 \\
+    0.5 & 0.8003 &    3 & 0.8020 \\
+    0.6 & 0.8007 &    4 & 0.8020 \\
+    0.7 & 0.8005 &     5 & 0.8022 \\
+    \end{tabular}%
+  \label{tab5}%
+\end{table}%
+ 
+Pick the best C value with highest validation accuracy. Here I chose C=5.
+
+\clearpage
+
+\section{Kaggle}
+My Kaggle username is Jack\_xzh. \\
+My Kaggle Score:
+
+\begin{table}[htb]
+  \centering
+    \begin{tabular}{lr}
+    \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{Score} \\
+    \hline
+    MNIST & 0.91440 \\
+    SPAM &  0.94792 \\
+    CIFAR-10 & 0.24540 \\
+    \end{tabular}%
+  \label{tab6}%                                                                                                                                                                                                                                  
+\end{table}%
+
+Here I find one strange thing. When I apply other kernels like poly and gaussian (rbf), on validation set, the accuracy I can get is much higher than the linear kernel. However, when I submitted it on kaggle, the score is not as good as the linear one. Sometimes, even much lower. I guess it may caused by the split of training and testing data process. It may not general enough.
+
+\clearpage
+
+\section{Theory of Hard-Margin Support Vector Machines}
+\begin{itemize}
+\item[(a)]
+In order to 
+$$
+\max \limits_{\lambda_i \ge 0}  \min \limits_{w,\alpha} \left\|w\right\|_2 - \sum_{i=1}^m \lambda_i (y_i (X_i \cdot w + \alpha) -1)
+$$
+First we need to
+$$
+\min \limits_{w,\alpha} L_p = \left\|w\right\|_2 - \sum_{i=1}^m \lambda_i (y_i (X_i \cdot w + \alpha) -1)
+$$
+Take the first partial derivative of w and $\alpha$
+\begin{align*}
+\frac{\partial L_p}{\partial w} &= 2 w - \sum_{i=1}^m \lambda_i y_i X_i = 0 \\
+\frac{\partial L_p}{\partial \alpha} &= \sum_{i=1}^m \lambda_i y_i= 0
+\end{align*}
+
+We can get $w = \frac{1}{2} \sum_{i=1}^m \lambda_i y_i X_i $ and $\sum_{i=1}^m \lambda_i y_i = 0$
+
+Substitute it back:
+\begin{align*}
+\left\|w\right\|_2 &= (\frac{1}{2} \sum_{i=1}^m \lambda_i y_i X_i)^T (\frac{1}{2} \sum_{i=1}^m \lambda_i y_i X_i)\\
+				&= \frac{1}{4} \sum_{i=1}^m \sum_{j=1}^m  \lambda_i \lambda_j y_i y_j X_i X_j \\
+			L_p &= \frac{1}{4} \sum_{i=1}^m \sum_{j=1}^m  \lambda_i \lambda_j y_i y_j X_i X_j  - \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m  \lambda_i \lambda_j y_i y_j X_i X_j -\sum_{i=1}^m \alpha \lambda_i y_i + \sum_{i=1}^m \lambda_i \\
+			      &= \sum_{i=1}^m \lambda_i - \frac{1}{4} \sum_{i=1}^m \sum_{j=1}^m  \lambda_i \lambda_j y_i y_j X_i X_j 
+\end{align*}
+
+So, the Equation(3) can be rewritten as the dual optimization problem
+$$
+\max \limits_{\lambda_i \ge 0} \sum_{i=1}^m \lambda_i -\frac{1}{4} \sum_{i=1}^m \sum_{j=1}^m  \lambda_i \lambda_j y_i y_j X_i X_j  \text{  subject to }  \sum_{i=1}^m \lambda_i y_i= 0
+$$
+
+\item[(b)] Use the result calculated in part (a), $w = \frac{1}{2} \sum_{i=1}^m \lambda_i y_i X_i $
+$$
+w \cdot x + \alpha = ( \frac{1}{2} \sum_{i=1}^m \lambda_i y_i X_i ) x + \alpha,
+$$
+Substitute the optimal value of $\lambda^*$ and $\alpha^*$,
+$$
+w \cdot x + \alpha =  \alpha^* + \frac{1}{2} (\sum_{i=1}^m \lambda_i^* y_i X_i ) x,
+$$
+So the decision rule in Equation (1) can be written as
+$$ 
+r(x) =\left\{
+\begin{array}{rcl}
++1 && { \text{ if } \alpha^* + \frac{1}{2}(\sum_{i=1}^m \lambda_i^* y_i X_i )x \ge 0}\\
+-1 && {\text{otherwise}}\\
+\end{array} \right.
+$$
+
+
+\item[(c)]
+\begin{itemize}
+\item For all the non-support vector, the corresponding $\lambda_i = 0$. This point has no influence when we evaluate the Equation (4). So, the support vectors are the only training points needed to evaluate the decision rule.
+
+\item For all the non-support vector, when we fit the model, we still need it to help us find the support vectors and the decision boundary. When we fit the model firstly, we don't know whether the point is support vector or not. So, the non-support vectors still have some influence on the decision rule.
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\section{Appendix: Codes}
+
+All the codes and corresponding results are clearly listed in the appendix.
+
+    \subsection{Data Partitioning}\label{data-partitioning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        
+        \PY{k}{def} \PY{n+nf}{processData}\PY{p}{(}\PY{n}{name}\PY{p}{,}\PY{n}{testing\PYZus{}size}\PY{p}{)}\PY{p}{:}
+            \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mat}\PY{l+s+s2}{\PYZdq{}} 
+            \PY{n}{data} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+        
+            \PY{n}{data\PYZus{}X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{data\PYZus{}t} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            
+            \PY{k}{if} \PY{n}{testing\PYZus{}size} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{testing\PYZus{}size} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{testing\PYZus{}size} \PY{o}{*} \PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} random.seed(189)}
+            \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{testing\PYZus{}size}\PY{p}{)}
+        
+            \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+            \PY{n}{data\PYZus{}X\PYZus{}validate} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}y}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+            \PY{n}{data\PYZus{}y\PYZus{}validate} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{data\PYZus{}y}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{n}{Data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+            \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}X\PYZus{}train}
+            \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}X\PYZus{}validate}
+            \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}y\PYZus{}train}
+            \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}y\PYZus{}validate}
+            \PY{n}{Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}t}
+            \PY{k}{return} \PY{n}{Data}
+            
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{mnistData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{spamData} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mf}{0.2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{spamData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(4138, 32)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{cifar10Data} \PY{o}{=} \PY{n}{processData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cifar10\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{5000}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cifar10Data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(45000, 3072)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        
+        \PY{k}{def} \PY{n+nf}{svmFit}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{gam}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n}{data\PYZus{}X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} random.seed(189)}
+            \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{training\PYZus{}sample}\PY{p}{)}
+        
+            \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+            \PY{n}{data\PYZus{}X\PYZus{}validate} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}y}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+            \PY{n}{data\PYZus{}y\PYZus{}validate} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}validate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+            \PY{n}{classifier}\PY{o}{=}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{c}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{n}{gam}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}train}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{y\PYZus{}validate} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}validate}\PY{p}{)}
+            \PY{n}{validate\PYZus{}accuracy} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}validate}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}validate}\PY{p}{)}
+            
+            \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{)}
+            \PY{n}{train\PYZus{}accuracy} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}train}\PY{p}{)}
+            \PY{k}{return} \PY{n}{train\PYZus{}accuracy}\PY{p}{,}\PY{n}{validate\PYZus{}accuracy}
+\end{Verbatim}
+
+    \subsection{Support Vector Machines:
+Coding}\label{support-vector-machines-coding}
+
+Fit the model using given number of training sample and predict on the
+validation set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} mnistData}
+        \PY{n}{t\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{v\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{training\PYZus{}sample} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{training\PYZus{}sample}\PY{p}{:}
+            \PY{n}{ta}\PY{p}{,}\PY{n}{va} \PY{o}{=} \PY{n}{svmFit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{ta}\PY{p}{,}\PY{n}{va}\PY{p}{)}
+            \PY{n}{t\PYZus{}error}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{ta}\PY{p}{)}
+            \PY{n}{v\PYZus{}error}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{va}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.0 0.7423
+1.0 0.8088
+1.0 0.8698
+1.0 0.8746
+1.0 0.8965
+1.0 0.901
+1.0 0.9101
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Optional: Fit the model by polynomial kernel}
+         \PY{n}{svmFit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{poly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 0.957
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{t\PYZus{}error}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{v\PYZus{}error}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnistData Linear SVM Error Rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} spamData}
+         \PY{n}{t\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{v\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{n}{training\PYZus{}sample} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,}\PY{l+m+mi}{4138}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{training\PYZus{}sample}\PY{p}{:}
+             \PY{n}{ta}\PY{p}{,}\PY{n}{va} \PY{o}{=} \PY{n}{svmFit}\PY{p}{(}\PY{n}{spamData}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{gam}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{ta}\PY{p}{,}\PY{n}{va}\PY{p}{)}
+             \PY{n}{t\PYZus{}error}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{ta}\PY{p}{)}
+             \PY{n}{v\PYZus{}error}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{va}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.84 0.753384912959381
+0.85 0.8133462282398453
+0.856 0.8143133462282398
+0.793 0.8007736943907157
+0.7925 0.809477756286267
+0.7996616723054616 0.8123791102514507
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Optional: Fit the model by kernel}
+         \PY{n}{svmFit}\PY{p}{(}\PY{n}{spamData}\PY{p}{,}\PY{l+m+mi}{4138} \PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rbf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{gam}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 0.8355899419729207
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{t\PYZus{}error}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{v\PYZus{}error}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spamData Linear SVM Error Rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} cifar10Data}
+         \PY{n}{t\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{v\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{n}{training\PYZus{}sample} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{training\PYZus{}sample}\PY{p}{:}
+             \PY{n}{ta}\PY{p}{,}\PY{n}{va} \PY{o}{=} \PY{n}{svmFit}\PY{p}{(}\PY{n}{cifar10Data}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{ta}\PY{p}{,}\PY{n}{va}\PY{p}{)}
+             \PY{n}{t\PYZus{}error}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{ta}\PY{p}{)}
+             \PY{n}{v\PYZus{}error}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{va}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.0 0.2154
+1.0 0.2504
+1.0 0.2714
+1.0 0.2738
+1.0 0.291
+1.0 0.303
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Optional: Fit the model by kernel}
+         \PY{n}{svmFit}\PY{p}{(}\PY{n}{cifar10Data}\PY{p}{,}\PY{l+m+mi}{5000}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{poly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 0.3778
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{t\PYZus{}error}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}sample}\PY{p}{,}\PY{n}{v\PYZus{}error}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cifar10Data Linear SVM Error Rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Hyperparameter Tuning}\label{hyperparameter-tuning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{v\PYZus{}accuracy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{n}{listC} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{10} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{listC}\PY{p}{:}
+             \PY{n}{va} \PY{o}{=} \PY{n}{svmFit}\PY{p}{(}\PY{n}{mnistData}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{va}\PY{p}{)}
+             \PY{n}{v\PYZus{}accuracy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{va}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.1 0.9124
+0.2 0.9087
+0.3 0.9075
+0.4 0.9104
+0.5 0.9119
+0.6 0.9157
+0.7 0.9149
+0.8 0.9108
+0.9 0.9167
+1 0.9103
+2 0.9113
+3 0.9139
+4 0.9092
+5 0.9124
+
+    \end{Verbatim}
+
+    \subsection{K-Fold Cross-Validation}\label{k-fold-cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k}{def} \PY{n+nf}{KFoldCV}\PY{p}{(}\PY{n}{name}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mat}\PY{l+s+s2}{\PYZdq{}} 
+             \PY{n}{data} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+             
+             \PY{n}{data\PYZus{}X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             
+             \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{189}\PY{p}{)}
+             \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{data\PYZus{}X} \PY{o}{=} \PY{n}{data\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}   
+             \PY{n}{data\PYZus{}y} \PY{o}{=} \PY{n}{data\PYZus{}y}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+             
+             \PY{n}{accu} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{index} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(} \PY{n+nb}{int}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{i}\PY{o}{/}\PY{n}{k}\PY{p}{)} \PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{n}{k}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{data\PYZus{}X\PYZus{}validate} \PY{o}{=} \PY{n}{data\PYZus{}X}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                 \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{data\PYZus{}X}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{data\PYZus{}y\PYZus{}validate} \PY{o}{=} \PY{n}{data\PYZus{}y}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                 \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{data\PYZus{}y}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                        
+                 \PY{n}{classifier}\PY{o}{=}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{c}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}train}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{y\PYZus{}validate} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}validate}\PY{p}{)}
+                 \PY{n}{validate\PYZus{}accuracy} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}validate}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}validate}\PY{p}{)}
+                 \PY{n}{accu}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{validate\PYZus{}accuracy}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{accu}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{accu}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{kfold\PYZus{}accuracy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{n}{listC} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{10} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{listC}\PY{p}{:}
+             \PY{n}{ka} \PY{o}{=} \PY{n}{KFoldCV}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spam\PYZus{}data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{n}{i}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{ka}\PY{p}{)}
+             \PY{n}{kfold\PYZus{}accuracy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ka}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.1 0.7938898700230801
+0.2 0.7967906633401546
+0.3 0.799304235696465
+0.4 0.799304235696465
+0.5 0.8002709799194536
+0.6 0.8006574533494053
+0.7 0.8004642166344296
+0.8 0.8008510638297872
+0.9 0.8014309608574178
+1 0.8012377241424421
+2 0.8016243844550968
+3 0.8020110447677515
+4 0.8020112316504546
+5 0.8022046552481334
+
+    \end{Verbatim}
+
+    \subsection{Prediction on the test data}\label{prediction-on-the-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} mnistData}
+         \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mat}\PY{l+s+s2}{\PYZdq{}} 
+         \PY{n}{data} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}X\PYZus{}test} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} random.seed(189)}
+         \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{25000}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+         \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}y\PYZus{}train}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+         
+         \PY{n}{classifier}\PY{o}{=}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}train}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{save} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{save}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{save}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{save}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mnist\PYZus{}predict.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[7 2 1 {\ldots} 4 5 6]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} spamData}
+         \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mat}\PY{l+s+s2}{\PYZdq{}} 
+         \PY{n}{data} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}X\PYZus{}test} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{classifier}\PY{o}{=}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rbf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}train}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{save} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{save}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{save}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{save}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spam\PYZus{}predict.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1 1 0 {\ldots} 0 0 0]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} cifar10Data}
+         \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cifar10\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mat}\PY{l+s+s2}{\PYZdq{}} 
+         \PY{n}{data} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training\PYZus{}labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{data\PYZus{}X\PYZus{}test} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{189}\PY{p}{)}
+         \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{15000}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+         \PY{n}{data\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}y\PYZus{}train}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+          
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data done}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{=}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{poly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fitted}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}train}\PY{p}{,}\PY{n}{data\PYZus{}y\PYZus{}train}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{start predicting}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Data done
+fitted
+start predicting
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{save} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{save}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{save}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{save}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cifar10\PYZus{}predict.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[3 9 0 {\ldots} 5 5 2]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+
+\end{document}
+
+
+

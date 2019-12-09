@@ -1,0 +1,915 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{enumerate}
+\usepackage{amsmath, mathtools, amsfonts, amsrefs}
+\usepackage{fancyhdr, geometry}
+\usepackage{lastpage}
+\usepackage{pgfplots,pgf}
+\usepackage{tikz}
+\usepackage{color,listings}
+\geometry{left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm}
+\pgfplotsset{width=10cm,compat=1.6}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\usepackage[colorlinks,
+            linkcolor=black,
+            anchorcolor=blue,
+            citecolor=black
+            ]{hyperref}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{dkgreen},
+	breaklines=true,
+	breakatwhitespace=true
+	tabsize=3
+}
+
+
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+ 
+
+\title{CS 189 Homework2}
+\author{Xu Zhihao}
+
+\begin{document}
+\pagestyle{fancy}{}
+\fancyhf{} 
+\lhead{Xu Zhihao}
+\chead{CS 189 Homework2}
+\rhead{\thepage \  / \pageref{LastPage}}
+
+\maketitle
+
+\emph{I certify that all solutions are entirely in my own words and that I have not looked at another student’s solutions. I have given credit to all external sources I consulted.} 
+\begin{flushright}
+Signature: \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+\end{flushright}
+\vspace{100pt}
+
+%\tableofcontents
+
+\clearpage
+
+\begin{enumerate}
+\item[1.]  Identities with Expectation \\
+
+\begin{itemize}
+\item[(1)] 
+By definition:
+$$
+E(X^k) = \int x^k f(x) dx = \int_0^{\infty} x^k \lambda e^{-\lambda x} dx
+$$
+When K = 1,
+\begin{align*}
+E(X) &= \int_0^{\infty} x \lambda e^{-\lambda x} dx  \\
+         &=\lambda \int_0^{\infty} x e^{-\lambda x}  dx\\
+         &= \left [ \lambda \times \frac{-\lambda x - 1}{ \lambda^2} e^{-\lambda x} \right ]_0^{\infty} = \frac{1}{\lambda}
+\end{align*}
+So, when K = 1, the result is true, $E(X^k) = \frac{k !}{\lambda^k}$. Suppose, it is true for k = n-1,
+$$
+E(X^{n-1}) = \frac{(n-1)!}{\lambda^{n-1}}
+$$
+For k = n,
+\begin{align*}
+E(X^{n}) &= \int x^n f(x) dx = \int_0^{\infty} x^k \lambda e^{-\lambda x} dx \\
+               &= x^n \cdot \left [-e^{-\lambda x} \right]_0^{\infty} - \int_{0}^{\infty} n x^{n-1} (-e^{-\lambda x}) dx \\
+               &= 0 + \frac{n}{\lambda} E(X^{n-1}) \\
+               &= n \times \frac{(n-1)!}{\lambda^{n-1}} = \frac{n!}{\lambda^n}
+\end{align*}
+which is true for x = n. So, by mathematical induction, $ E(X^k) = \frac{k!}{\lambda^k}$ for $k \in \mathbb{Z}$
+
+\clearpage
+\item[(2)]
+By definition,
+$$
+P (X \ge t) = 1 - F(t)
+$$
+\begin{align*}
+\int_{0}^{\infty}  P (X \ge t)  dt &= \int_{0}^{\infty}  [1 - F(t)]  dt \\
+							 &= t \left [1 - F(t) \right ]_0^{\infty} + \int_0^{\infty} x f(x) dx \\
+							 &= 0 + E(X)
+\end{align*}
+
+which shows that $E(X) = \int_{0}^{\infty}  P (X \ge t)  dt $ if X is a non-negative real-valued Random Variable.
+
+\clearpage
+\item[(3)]
+We first set two indicator variables,
+$$
+I_{ \{X=0\} } =
+\begin{cases}
+1& \text{X = 0}\\
+0& \text{X $>$ 0}
+\end{cases}
+$$
+$$
+I_{ \{X>0\} } =
+\begin{cases}
+0& \text{X = 0}\\
+1& \text{X $>$ 0}
+\end{cases}
+$$
+\begin{align*}
+E(X) &= E(X I_{ \{X=0\} } ) + E(X I_{ \{X>0\} }) \\
+	 &= 0 + E(X I_{ \{X>0\} }) = E(X I_{ \{X>0\} }) \\
+	 &\le \sqrt{E(X^2)} \times \sqrt{E (I_{ \{X>0\} })^2} \\
+	 &=\sqrt{E(X^2) \cdot E (I_{ \{X>0\} })} \\
+	 &= \sqrt{E(X^2) \cdot P(X>0)} \\
+\end{align*}
+So, we can get that
+$$
+E(X)^2 \le E(X^2) \cdot P(X>0)
+$$
+which is equivalent to 
+$$
+ P(X>0) \ge \frac{E(X)^2}{ E[X^2]}
+$$
+\clearpage
+\item[(4)]
+First we define the similar  indicator variables $I_{ \{t - X > 0\} }$. Since we already known
+$$
+t - X \le (t-X) I_{ \{t - X > 0\} }
+$$
+We can get 
+$$
+E(t - X) \le E \{ (t-X) I_{ \{t - X > 0\} } \}
+$$
+By Cauchy–Schwarz inequality:
+$$
+E(t - X) \le \sqrt{E[(t-X)^2]} \cdot \sqrt{E[ I_{ \{t - X > 0\} }]^2}
+$$
+Reformulate the inequality, we can get
+\begin{align*}
+P (X < t) &= \frac{E^2(t - X)}{E[(t-X)^2]} \\
+		   &= \frac{E^2(X) - 2t E(X) + t^2}{E(X^2) - 2t E(X) + t^2} \\
+		   &= \frac{E^2(X) + t^2}{E(X^2) + t^2} \\
+		   &\ge \frac{t^2}{E(X^2) + t^2} \\
+\Longleftrightarrow 1 - P (X < t) &\le 1 + \frac{-t^2}{E(X^2) + t^2} \\
+			&=\frac{E(X^2)}{E(X^2) + t^2} \\ 
+\Longleftrightarrow P (X \ge t) \le \frac{E(X^2)}{E(X^2) + t^2} 
+\end{align*}
+
+\end{itemize}
+
+\clearpage
+
+
+\item[2.] Properties of Gaussians \\
+\begin{itemize}
+\item[(1)] 
+Since $X \sim N(0,\sigma^2)$, the pdf of X is
+$$
+f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\{ -\frac{x^2}{2 \sigma^2} \}
+$$
+$$
+E[e^{\lambda x}] = \int e^{\lambda x} f(x) dx = \int_{-\infty}^{+\infty} e^{\lambda x} \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\{ -\frac{x^2}{2 \sigma^2} \}
+$$
+Use $t = \frac{x}{\sigma}$ to substitute x
+\begin{align*}
+E[e^{\lambda x}]  
+&= \exp(\frac{\sigma^2 \lambda^2}{2})  \int_{-\infty}^{+\infty} \exp(-\frac{\sigma^2 \lambda^2}{2}) \exp(\sigma \lambda t) \frac{1}{\sqrt{2\pi}} \exp(-\frac{t^2}{2}) dt \\
+&= \exp(\frac{\sigma^2 \lambda^2}{2}) \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}} \exp \{ -\frac{(t - \lambda)^2}{x}\} dx
+\end{align*}
+Since $\frac{1}{\sqrt{2\pi}} \exp \{ -\frac{(t - \lambda)^2}{x}\}$ is the pdf of $N(\lambda,1)$
+$$
+E[e^{\lambda x}]   = \exp(\frac{\sigma^2 \lambda^2}{2})
+$$
+
+\clearpage
+\item[(2)]
+Proof:
+\begin{align*}
+P (X \ge t) &= P(e^{\lambda x} \ge e^{\lambda t}) \\
+		    &\le \frac{E[e^{\lambda x}]}{e^{\lambda t}} = \frac{e^{\frac{\sigma^2 \lambda^2}{2}}}{e^{\lambda t}} \\
+		    &= \exp \{ -\lambda t + \frac{1}{2} \sigma^2 \lambda^2 \} \\
+		    &\le \exp \{ -\frac{t^2}{2 \sigma^2}\}
+\end{align*}
+
+Since $X \sim N(0,\sigma^2)$, and X is symmetric among $X=0$.
+$$
+P (|X| \ge t) = 2 P (X \ge t) \le 2 \exp \{ -\frac{t^2}{2 \sigma^2}\}
+$$
+
+\clearpage
+\item[(3)]
+Since $X_1,X_2,...,X_n \sim N (0,\sigma^2)$, by Central Limit Theorem:
+$$
+\frac{1}{n} \sum_{i=1}^n X_i \sim N(0,\frac{\sigma^2}{n})
+$$
+Using the inequality proved in part (2)
+\begin{align*}
+P (\frac{1}{n} \sum_{i=1}^n X_i \ge t) &\le \exp (-\frac{t^2}{2 \frac{\sigma^2}{n}}) \\
+							            &= \exp (-\frac{n t^2}{2 \sigma^2})
+\end{align*}
+
+when $n \to \infty$
+$$
+\lim_{n \to \infty} \exp (-\frac{n t^2}{2 \sigma^2}) = 0
+$$
+So, the inequality goes to be
+$$
+\lim_{n \to \infty} P (\frac{1}{n} \sum_{i=1}^n X_i \ge t) = 0
+$$
+
+\clearpage
+\item[(4)]
+Let $X \sim N(0,1), Y = RX$, the pdf of R is $f_R(r) = 
+\begin{cases}
+\frac{1}{2} ,& r=1\\
+-\frac{1}{2} ,& r=-1\\
+0,& Otherwise\\
+\end{cases}
+$
+
+First we need to show Y is Gaussian.
+\begin{align*}
+P (Y \le x)
+&= P(RX \le x)\\
+&=P(X \le x | R=1) + P(X \ge -x | R=-1)\\
+&=P(X \le x) P(R=1) + P(X \ge -x ) P(R=-1)\\
+&=\frac{1}{2} \left [ P(X \le x) + P(X \ge -x)\right ] \\
+&= P (X \le x) \\
+&=\Phi (x)
+\end{align*}
+Here if we choose $a = \frac{1}{2}, b = \frac{1}{2}$, $aX + bY$ is not Gaussian.
+$$
+P (aX + bY = 0) = 0
+$$
+which does not satisfy Gaussian distribution
+
+\clearpage
+\item[(5)]
+$$
+u_x = <u,X > = u_1 X_1 + u_2 X_2 + \cdots + u_n X_n
+$$
+$$
+v_x = <v,X > = v_1 X_1 + v_2 X_2 + \cdots + v_n X_n
+$$
+
+\begin{align*}
+Cov(u_x,v_x) 
+&= E (u_x v_x) - E(u_x) E(v_x) \\
+&= E \left [ \sum_{i=1}^n u_i v_i X_i^2 + \sum_{i \ne j} (u_i v_j + u_j v_i) X_i X_j \right ] - \left [ \sum_{i=1}^n u_i E(X_i) \right ] \left [ \sum_{i=1}^n v_i E(X_i) \right ] \\
+&= \sum_{i=1}^n u_i v_i E(X_i^2) + \sum_{i \ne j} (u_i v_j + u_j v_i) E ( X_i X_j) \\
+&\quad - \left [ \sum_{i=1}^n u_i v_i E^2(X_i) +  \sum_{i \ne j} (u_i v_j + u_j v_i) E ( X_i) E(X_j)\right] \\
+&= \sum_{i=1}^n u_i v_i [ E(X_i^2) - E^2(X_i) ] +  \sum_{i \ne j} (u_i v_j + u_j v_i) [E ( X_i X_j) - E ( X_i) E(X_j)] \\
+&= \sum_{i=1}^n u_i v_i Var(X_i) +  \sum_{i \ne j} (u_i v_j + u_j v_i) Cov(X_i, X_j) \\
+&= \sum_{i=1}^n u_i v_i = <u,v> = 0
+\end{align*}
+Using the fact that jointly normal random variables are independent iff. they are uncorrelated $u_x$ and $u_y$ are independent.
+
+\clearpage
+\item[(6)]
+Take $Y = \max \limits_{1 \le i \le n} |X_i|$, using Jensen’s inequality
+\begin{align*}
+e^{tE(Y)} &\le E(e^{tY}) \\
+		  &= E \left ( \max \limits_{1 \le i \le n} e^{t|X_i|}\right ) \\
+		  &\le \sum_{i=1}^n E \left (e^{t|X_i|}\right ) 
+\end{align*}
+where $|X_i|$ follows folded normal distribution with $\mu=0$ and $\sigma^2 $. Using the formula of folded normal distribution's mgf
+\begin{align*}
+E \left (e^{t|X_i|} \right ) &= \varphi (-it) \\
+					     &= 2e^{\frac{\sigma^2 t^2}{2}} \left [ 1 - \Phi(-\sigma t)\right ] \\
+					     &\le 2e^{\frac{\sigma^2 t^2}{2}}
+\end{align*}
+Then 
+\begin{align*}
+e^{tE(Y)} &\le \sum_{i=1}^n E \left (e^{t|X_i|}\right ) \\
+		  &\le  \sum_{i=1}^n 2e^{\frac{\sigma^2 t^2}{2}} \\
+		  &= 2n e^{\frac{\sigma^2 t^2}{2}} \\
+\Longleftrightarrow E(Y) &\le \frac{\ln 2n}{t} + \frac{t \sigma^2}{2}
+\end{align*}
+Take $f(t) = \frac{\ln 2n}{t} + \frac{t \sigma^2}{2}$, then let $\frac{d f(t)}{dt} = 0$, we can get
+$$
+t^* = \frac{\sqrt{2 \ln (2n)}}{\sigma}
+$$
+which leads to
+$$
+E(Y) \le f(t^*) = \sigma \sqrt{2 \ln (2n)}
+$$
+So, we can get the result 
+$$
+E \left ( \max \limits_{1 \le i \le n} e^{t|X_i|}\right ) \le f(t^*) =  C \sqrt{\ln (2n)}\sigma \text{,  with C = } \sqrt{2}
+$$
+\end{itemize}
+
+\clearpage
+
+\item[3.] Linear Algebra Review\\
+\begin{itemize} 
+\item[(1)]
+Since A is a real symmetric matrix, we can do the eigen-decomposition. 
+$$
+A = Q \Lambda Q^T = Q \Lambda Q^{-1}
+$$
+where $\Lambda = diag \{ \lambda_1, \lambda_2,..., \lambda_n \}$, $\lambda_i$ are all the eigenvalues of the matrix A. 
+
+Then for $\forall x \in \mathbb{R}^n$
+\begin{align*}
+x^T A X \ge 0 & \Longleftrightarrow x^T Q \Lambda Q^T x \ge 0 \Longleftrightarrow (x^T Q) \Lambda(x^T Q)^T \ge 0\\
+y \Lambda y^T \ge 0 & \Longleftrightarrow \sum_{i=1}^n \lambda_i y_i^2 \ge 0
+\end{align*}
+So, the definition (a) is equivalent to 
+$$
+\sum_{i=1}^n \lambda_i y_i^2 \ge 0 \text{ for } \forall y \in  \mathbb{R}^n
+$$
+This  condition satisfies if and only if $\lambda_i \ge 0$, $i \in \{1,2,...,n\}$. Hence the definition (a) and (b) are equivalent.\\
+
+Next we consider definition (c). We need to show the Sufficiency and Necessity between (c) and (a).
+\subitem [Sufficiency]
+Define $U = Q \sqrt{\Lambda} Q^T$, we can easily verify that $U = U^T$. Then
+\begin{align*}
+U U^T &= U U =  Q \sqrt{\Lambda} Q^T Q \sqrt{\Lambda} Q^T \\
+	    &= Q \sqrt{\Lambda} Q^{-1} Q \sqrt{\Lambda} Q^T \\
+	    &=Q \sqrt{\Lambda} \sqrt{\Lambda} Q^T \\
+	    &=Q \Lambda Q^T = A
+\end{align*}
+
+\subitem [Necessity]
+If $\exists U \in \mathbb{R}^{n\times n}$, such that $ A = U  U^T$. Let y = $U^T x$, 
+\begin{align*}
+x^T A x &= x^T U U^T x  = (U^T x)^T (U^T x) = y^T y = \sum_{i=1}^n y_i^2 \ge 0
+\end{align*}
+Hence the definition (a) and (c) are equivalent.\\
+In conclusion, all the definition (a) (b) and (c) are equivalent.
+
+\clearpage
+\item[(2)]
+
+\begin{itemize}
+\item[(a)]
+For $\forall x \in  \mathbb{R}^n$, $x^T A x \ge 0$ and $x^T B x \ge 0$, then
+$$
+x^T (2A+3B) x = 2 x^T A x + 3 x^T B x \ge 0
+$$
+Hence, 2A+3B is PSD
+
+\item[(b)]
+If A is PSD, then for $\forall x \in  \mathbb{R}^n $ ,$x^T A x \ge 0$. Let$ x = e_i$, the elementary vector. Only i-th element is 1, others are 0. Then
+$$
+e_i^T A e_i = a_{ii} \ge 0
+$$
+
+\item[(c)]
+If A is PSD, then for $\forall x \in \mathbb{R}^n $, $x^T A x \ge 0$. Let $x = \mathbf{1}$, all 1 vector. Then
+$$
+\mathbf{1}^T A \mathbf{1} = \sum_{i=1}^n \sum_{j=1}^n a_{ij} \ge 0
+$$
+
+\item[(d)]
+If A and B are PSD, then we get $A = U U^T$, $B = V V^T$, where U and V are $n \times n$ real valued matrix. Then
+$$
+Tr(AB) = Tr(U U^T V V^T) = Tr[(V^T U)( V^T U)^T]
+$$
+So we can clearly see that $(V^T U)( V^T U)^T$ is PSD. Using the result in (b) we can get that
+$$
+Tr(AB) = \sum_{i=0}^n a_{ii} \ge 0
+$$
+
+\item[(e)]
+\subitem [Sufficiency]
+Since any PSD matrix A can be decomposed into the product of two PSD matrix.
+\begin{align*}
+Tr(AB) &= 0 \\
+\Rightarrow Tr(A^{\frac{1}{2}} A^{\frac{1}{2}} B^{\frac{1}{2}} B^{\frac{1}{2}}) &=0 \\
+\Rightarrow Tr(B^{\frac{1}{2}} A^{\frac{1}{2}} A^{\frac{1}{2}} B^{\frac{1}{2}}) &=0 \\
+\Rightarrow Tr( (A^{\frac{1}{2}} B^{\frac{1}{2}})^T A^{\frac{1}{2}} B^{\frac{1}{2}}) &=0 
+\end{align*}
+
+Using the property of square matrix
+$$
+Tr(A^T A) = \sum_{i=1}^n \sum_{j=1}^n a_{ij}^2
+$$ 
+If $Tr(A^T A) = 0$, then $sum_{i=1}^n \sum_{j=1}^n a_{ij}^2 = 0 \Rightarrow x_{ij} = 0$, which is equivalent to $X=0$. In this question, 
+\begin{align*}
+Tr( (A^{\frac{1}{2}} B^{\frac{1}{2}})^T A^{\frac{1}{2}} B^{\frac{1}{2}}) &=0 \\
+\Rightarrow A^{\frac{1}{2}} B^{\frac{1}{2}} &= 0 \\
+\Rightarrow AB = A^{\frac{1}{2}} (A^{\frac{1}{2}} B^{\frac{1}{2}}) B^{\frac{1}{2}} &= 0 
+\end{align*}	
+
+\subitem [Necessity]
+It obvious that if AB=0, Tr(AB) = 0
+
+\end{itemize}
+
+\clearpage
+\item[(3)]
+Since A is a real symmetric matrix, we can do the eigen-decomposition. 
+$$
+A = Q \Lambda Q^T = Q \Lambda Q^{-1}
+$$
+where $\Lambda = diag \{ \lambda_1, \lambda_2,..., \lambda_n \}$, $\lambda_i$ are all the eigenvalues of the matrix A. 
+For $\forall x \in \mathbb{R}^n$, let $y = Q^T x$. Then we have
+$$
+x^T A x = x^T Q \Lambda Q^T x = yT^ \Lambda y = \sum_{i=1}^n \lambda_i y_i^2
+$$
+Obviously,
+$$
+\lambda_{min} (A)  \sum_{i=1}^n y_i^2 \le  \sum_{i=1}^n \lambda_i y_i^2 \le \lambda_{max} (A)  \sum_{i=1}^n y_i^2 
+$$
+Here we can add a constrain $\left \| x \right \|_2 = 1$,
+$$
+\sum_{i=1}^n \lambda_i y_i^2 = y^T y = x^T Q Q^T x = x^T I x = x^T x = 1
+$$
+So, substitute it back, we can get
+\begin{align*}
+\lambda_{min} (A) \le x^T A x \le \lambda_{max} (A)   \\
+\Rightarrow \max \lambda(A) = \max \limits_{\left \| x \right \|_2 = 1} x^T A x
+\end{align*}
+
+\end{itemize}
+
+\clearpage
+
+\item[4.] Gradients and Norms \\
+\begin{itemize}
+\item[(1)]
+\begin{align*}
+\left \| x \right \|_1 &= | x_1| +| x_2| + \cdots + | x_n| \\
+\left \| x \right \|_2& = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
+\end{align*}
+
+Here we use the Minkowski Inequality continuously,
+\begin{align*}
+\left \| x \right \|_2 
+&= \left ( \sum_{i=1}^n |x_i|^2 \right )^{\frac{1}{2}} \\
+&\le \left ( \sum_{i=1}^{n-1} |x_i|^2 \right )^{\frac{1}{2}} + |x_n^2|^{\frac{1}{2}}\\
+&\le \left ( \sum_{i=1}^{n-2} |x_i|^2 \right )^{\frac{1}{2}} + |x_{n-1}^2|^{\frac{1}{2}} + |x_n^2|^{\frac{1}{2}}\\
+& \cdots \\
+&\le \sum_{i=1}^n |x_i| = \left \| x \right \|_1
+\end{align*}
+Then using Cauchy-Schwarz Inequality
+$$
+\left \| x \right \|_1 = \sum_{i=1}^n |x_i| = \sum_{i=1}^n |x_i| \cdot 1 \le \sum_{i=1}^n |x_i|^2 \cdot \sum_{i=1}^n 1^2 = \sqrt{n} \left \| x \right \|_2
+$$
+
+\clearpage
+\item[(2)]
+\begin{itemize}
+\item[(a)]
+$$
+\frac{\partial \alpha}{\partial \beta_i} = \frac{y_i}{\beta_i}
+$$
+
+\item[(b)]
+$$
+\frac{\partial \beta_i}{\partial \gamma_j} = 
+\begin{cases}
+0, & i \ne j\\
+\cosh(\gamma_i), & i=j
+\end{cases}
+$$
+
+\item[(c)]
+Since $\gamma = A \rho + b$,
+$$
+\gamma_i = \left( \sum_{i=1}^m a_{ij} \rho_j\right ) + b_i
+$$
+Then we can compute
+$$
+\frac{\partial \gamma_i}{\partial \rho_j} = a_{ij}
+$$
+
+\item[(d)]
+First we can compute $f(x)$,
+\begin{align*}
+f(x) &= \sum_{i=1}^n y_i \ln \left[ \sinh(Ax+b)_i \right] \\
+       &= \sum_{i=1}^n y_i \ln \left \{ \sinh \left [ \left( \sum_{i=1}^m a_{ij} x_j\right ) \right ]+ b_i \right \} \\
+\end{align*}
+Then we can compute
+$$
+\frac{\partial f}{\partial x_j} = \sum_{i=1}^n \left \{ y_i \cdot \coth \left [ \sum_{k=1}^m (a_{ik} x_k) + b_i\right ] \cdot a_{ij}\right \}
+$$
+\end{itemize}
+
+\clearpage
+\item[(3)]
+\begin{align*}
+A &= 
+\left [ 
+\begin{array}{ccccc}
+a_1 & a_2 & a_3& \cdots &a_n
+\end{array} 
+\right ] \\
+X &= 
+\left [ 
+\begin{array}{ccccc}
+x_1 & x_2 & x_3& \cdots &x_n
+\end{array} 
+\right ] \\
+A^T X &= 
+\left [ 
+\begin{array}{cccc}
+a_1^T x_1 & a_1^T x_2 & \cdots &a_1^T x_n \\
+a_2^T x_1 & a_2^T x_2 & \cdots &a_2^T x_n \\
+\vdots & \vdots & \ddots & \vdots \\
+a_n^T x_1 & a_n^T x_2 & \cdots &a_n^T x_n 
+\end{array} 
+\right ] \\
+Tr(A^T X) &= \sum_{i=1}^n a_i^T x_i \\
+\Longrightarrow & \frac{\partial Tr(A^T X)}{\partial x_{ij}} = a_{ij}\\
+\Longrightarrow & \nabla_X Tr(A^T X) = A
+\end{align*}
+
+\clearpage
+\item[(4)]
+\begin{itemize}
+\item[(a)]
+Let
+$$
+f(x) = \frac{1}{2} x^T A x - b^T x
+$$
+Then
+$$
+\nabla_x f(x) = \frac{1}{2} \left( A x + A^T x\right) - b = Ax - b
+$$
+We need to solve
+$$
+\nabla_x f(x) = 0
+$$
+which is equivalent to 
+$$
+Ax = b
+$$
+So, $x^* A^{-1} b$ if $A^{-1} exists$
+
+\item[(b)] 
+Here we use gradient with step size equals 1, which is equivalent to Jacobian Method
+\begin{align*}
+x^{(k+1)} &= x^{(k)} - 1 \cdot \nabla_{x^{(k)}} f(x^{(k)}) \\
+\Longrightarrow x^{(k+1)} &= x^{(k)} - (A x^{(k)} - b) \\
+\Longrightarrow x^{(k+1)} &= (I - A) x^{(k)} + b
+\end{align*}
+
+\item[(c)]
+Since we already get $x^{(k+1)} = (I - A) x^{(k)} + b$, $b = A x^*$ 
+\begin{align*}
+x^{(k)} - x^* &= (I - A) x^{(k-1)} + A x^* - x^*\\
+x^{(k)} - x^* &= (I - A) \left ( x^{(k-1)} - x^* \right )
+\end{align*}
+
+\item[(d)]
+Use the fact that if $\lambda$ is an eigenvalue of A, $\lambda^2$ is an eigenvalue of $A^2$
+$$
+\| Ax \|_2^2 = x^T A^T A x = x^T A^2 x
+$$
+Using the result get in Problem 3 exercise 3 
+$$
+\| Ax \|_2^2 = x^T A^2 x \le \lambda_{max} (A^2) \| x \|_2^2 = \lambda_{max}^2 (A) \| x \|_2^2
+$$
+which is equivalent to
+$$
+\| Ax \|_2 \le \lambda_{max} (A) \| x \|_2
+$$
+
+\item[(e)]
+Take $u = x^{(k-1)} - x^*$
+\begin{align*}
+\left \| x^{(k)} - x \right \|_2^2 
+&= (x^{(k)} - x^*)^T (x^{k} - x^*) \\
+&= \left [(I - A) \left ( x^{(k-1)} - x^* \right ) \right ]^T \left [(I - A) \left ( x^{(k-1)} - x^* \right ) \right ] \\
+&=  \left [(I - A) u \right ]^T \left [(I - A) u \right ]\\
+&=  u^T (I - A)^T (I - A) u \\
+&= u^T (I-A)^2 u
+\end{align*}
+Using the fact that if $\lambda$ is an eigenvalue of A, $1-\lambda$ is an eigenvalue of $I - A$. \\
+Since 
+$$0 < \lambda_{min}(A) < \lambda_{max}(A) < 1$$ 
+we can get 
+$$0 < \lambda_{min}(I - A) < \lambda_{max}(I - A) < 1$$
+Using the result calculated in (d)
+$$
+ u^T (I-A)^2 u \le \lambda_{max}^2 (I - A) \cdot \| u \|_2^2
+$$
+Take $\rho = \lambda_{max} (I - A) $
+\begin{align*}
+ u^T (I-A)^2 u &\le \rho^2 \| u \|_2^2 \\
+ \Longleftrightarrow \| x^{(k)} - x^* \|_2^2 &\le \rho^2  \| x^{(k-1)} - x^* \|_2^2 \\
+ \Longleftrightarrow \| x^{(k)} - x^* \|_2 &\le \rho  \| x^{(k-1)} - x^* \|_2
+\end{align*}
+
+\item[(f)]
+Substitute the inequality get in (e) continuously
+$$
+\| x^{(k)} - x^* \|_2 \le\rho^k \| x^{(0)} - x^* \|_2
+$$
+So, we just need to make sure $\rho^k \| x^{(0)} - x^* \|_2 \le \varepsilon$, which can guarantee $\| x^{(k)} - x^* \|_2 \le \varepsilon$
+\begin{align*}
+&\rho^k \| x^{(0)} - x^* \|_2 \le \varepsilon \\
+\Longleftrightarrow& \ln \left ( \rho^k \| x^{(0)} - x^* \|_2 \right ) \le \ln \varepsilon \\
+\Longleftrightarrow& k \ln \rho  +\ln  \| x^{(0)} - x^* \|_2 \le \ln \varepsilon \\
+\Longleftrightarrow& k \le \frac{\ln \varepsilon -\ln  \| x^{(0)} - x^* \|_2 }{\ln \rho}
+\end{align*}
+\end{itemize}
+
+\clearpage
+\item[(5)]
+\begin{align*}
+L(\theta) &= \| y - X\theta\|_2^2 = (y-X\theta)^T(y-X\theta) \\
+\nabla_\theta L(\theta) &= -2X^T (y-X\theta) = 0 \\
+\Longleftrightarrow X^T X \theta &= X^T y
+\end{align*}
+If X is full rank and $X^T X$ is non-singular, we can get
+$$
+\theta^* = (X^T X)^{-1} X^T y
+$$
+\end{itemize}
+
+\clearpage
+\item[5.]
+\begin{itemize}
+\item[(1)]
+For $\forall x \in \mathbb{R}^n$,
+\begin{align*}
+x^T \Sigma x 
+&= x^T E \left [ (Z - \mu)(Z - \mu)^T \right ] x \\
+&= E \left [ x^T (Z - \mu)(Z - \mu)^T x \right ] \\
+&= E \left \{ \left [ x^T (Z - \mu)\right ]^T \left [ x^T(Z - \mu) \right ] \right \} \\
+&= E \left ( \left \|x^T (Z - \mu) \right \|_2^2\right ) \\
+&\ge 0
+\end{align*}
+which is the definition of PSD matrix.
+
+\clearpage
+\item[(2)]
+Do the eigen-decomposition of covariance matrix $\Sigma$. If  $\Sigma$ has one zero eigenvalue, $\lambda_k = 0$. Then
+$$
+\Sigma v_k = \lambda_k v_k = 0 \text{  where } \lambda_k = 0
+$$
+Take $Y = \sum_{i=1}^n v_{ki} X_i$,
+\begin{align*}
+Var(Y) &= Var(\sum_{i=1}^n v_{ki}X_i) \\
+	     &= \sum_{i=1}^n \sum_{j=1}^n v_{ki} v_{kj} Cov(X_i, X_j) \\
+	     &= \sum_{i=1}^n v_{ki} \sum_{j=1}^n v_{kj} \sigma_{ij} \\
+	     &= \sum_{i=1}^n v_{ki} \cdot 0 \\
+	     &= 0
+\end{align*}
+which means Y is a constant. And 
+$$
+\exists v_k \in \mathbb{R}^n,\text{  s.t. } <v_k, X> = 0
+$$
+So, X lost 1 degree of freedom. If $\Sigma$ had $m \le n$ zero eigenvalues, so that
+$$
+<v_i,X> = 0 \text{ for } \forall j \in [1,m]
+$$
+Construct a new $\tilde X \in  \mathbb{R}^{n-m}$ containing all the RV corresponding to non-zero eigenvalues, through Gaussian Elimination of
+$$
+V = \left [
+\begin{array}{c}
+v_1^T \\ 
+v_2^T \\
+\vdots \\
+v_m^T
+\end{array} \right ]
+$$
+Here $\tilde X$ contains all the infomation that needs to solve
+$$
+VX = 0
+$$
+\end{itemize}
+\end{enumerate}
+
+
+
+\end{document}
+
+
+

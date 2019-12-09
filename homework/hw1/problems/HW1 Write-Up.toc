@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Python Configuration and Data Loading}{2}{section.1}
+\contentsline {section}{\numberline {2}Data Partitioning}{2}{section.2}
+\contentsline {section}{\numberline {3}Support Vector Machines: Coding}{2}{section.3}
+\contentsline {section}{\numberline {4}Hyperparameter Tuning}{4}{section.4}
+\contentsline {section}{\numberline {5}K-Fold Cross-Validation}{5}{section.5}
+\contentsline {section}{\numberline {6}Kaggle}{6}{section.6}
+\contentsline {section}{\numberline {7}Theory of Hard-Margin Support Vector Machines}{7}{section.7}
+\contentsline {section}{\numberline {8}Appendix: Codes}{9}{section.8}
+\contentsline {subsection}{\numberline {8.1}Data Partitioning}{9}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Support Vector Machines: Coding}{10}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}Hyperparameter Tuning}{14}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}K-Fold Cross-Validation}{14}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Prediction on the test data}{15}{subsection.8.5}
