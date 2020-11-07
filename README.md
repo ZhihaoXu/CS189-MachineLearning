@@ -1,7 +1,7 @@
 ## CS189-MachineLearning
 Homework of CS189 Introduction to Machine Learning in UC-Berkeley.  
 The algorithm implemented:  
-- [Week1](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/hw1): `SVM` and `K-fold Cross-Validation`  
+- [Week1](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/hw1): `SVM`(using `sklearn`) and `K-fold Cross-Validation`  
 - [Week3](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/hw3): Gaussian Classifier: `LDA` / `QDA`  
 - [Week4](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/hw4): `Logistic Regression` with L<sub>1</sub> and L<sub>2</sub> Regularization  
 - [Week5](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/hw5): `Decision Tree` and `Random Forest`  
