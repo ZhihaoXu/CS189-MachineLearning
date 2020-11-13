@@ -9,7 +9,7 @@ The algorithm implemented:
   - Use `LDA` and `QDA` on the [`MNIST`](http://yann.lecun.com/exdb/mnist/) and [`Spam`](https://github.com/ZhihaoXu/CS189-MachineLearning/blob/master/homework/week1/problems/data/spam_data.mat) dataset
   - The final accuracy on the test datasets are 0.884, 0.820
 - [Week4](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/week4): `Logistic Regression` with L<sub>1</sub> and L<sub>2</sub> Regularization  
-  - Use `Logistic Regression` on the [Wine](https://github.com/ZhihaoXu/CS189-MachineLearning/blob/master/homework/week4/data.mat) data with 6497 data points and 12 features, predict a wine is white or red
+  - Use `Logistic Regression` on the [`Wine`](https://github.com/ZhihaoXu/CS189-MachineLearning/blob/master/homework/week4/data.mat) data with 6497 data points and 12 features, predict a wine is white or red
   - The final accuracy on the test dataset is 0.98
 - [Week5](https://github.com/ZhihaoXu/CS189-MachineLearning/tree/master/homework/week5): `Decision Tree` and `Random Forest`  
   - Use `Decision Tree` and `Random Forest` on the [`Spam`](https://github.com/ZhihaoXu/CS189-MachineLearning/blob/master/homework/week1/problems/data/spam_data.mat) and [`Titanic`](https://www.kaggle.com/c/titanic/data) dataset
